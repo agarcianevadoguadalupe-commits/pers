@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feliz cumple, Mamá — Hermes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-1: #FFF8FB;
+    --bg-2: #F7FFFB;
+    --card:#ffffff;
+    --accent:#D17C9B;
+    --muted:#6b6b6b;
+    --text:#102028;
+    --glass: rgba(255,255,255,0.7);
+    --radius:16px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,var(--bg-1),var(--bg-2));color:var(--text);-webkit-font-smoothing:antialiased}
+  .wrap{max-width:980px;margin:28px auto;padding:18px}
+  .hero{background:linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.6));border-radius:calc(var(--radius) + 8px);padding:26px;box-shadow:0 12px 30px rgba(16,32,40,0.06);position:relative;overflow:hidden}
+  .hero-grid{display:flex;gap:18px;align-items:center}
+  .photo{width:140px;height:140px;border-radius:50%;overflow:hidden;flex:0 0 140px;box-shadow:0 8px 20px rgba(16,32,40,0.06)}
+  .photo img{width:100%;height:100%;object-fit:cover;display:block}
+  h1{margin:0;font-family:'Playfair Display',serif;font-size:30px}
+  p.lead{margin:8px 0;font-size:16px;color:var(--muted)}
+  .cta{margin-top:12px}
+  button{background:var(--accent);color:#fff;border:none;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer}
+  section{margin-top:22px;padding:18px;border-radius:14px;background:rgba(255,255,255,0.6);box-shadow:0 6px 18px rgba(16,32,40,0.04)}
+
+  /* gallery layout: primera fila imagen completa, segunda fila dos mitades */
+  .photos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;align-items:start}
+  .photo-main{grid-column:1/3;height:400px;overflow:hidden;border-radius:10px}
+  .thumb-half{height:200px;overflow:hidden;border-radius:10px}
+  .photo-main img,.thumb-half img{width:100%;height:100%;object-fit:cover;display:block}
+
+  .note{font-size:13px;color:var(--muted);margin-top:8px}
+  .blobs{position:fixed;left:0;top:0;pointer-events:none;width:100%;height:100%;z-index:-1}
+  .blob{position:absolute;filter:blur(36px);opacity:0.6;transform:translate3d(0,0,0)}
+  .b1{width:380px;height:380px;background:radial-gradient(circle at 30% 30%, #FFD1DC, #F6B0D6);left:-80px;top:-120px}
+  .b2{width:320px;height:320px;background:radial-gradient(circle at 70% 30%, #DFF7EE, #BDEFD9);right:-80px;bottom:-140px}
+  .b3{width:260px;height:260px;background:radial-gradient(circle at 50% 50%, #FFF0D9, #FFE6B3);left:50%;top:60%;transform:translateX(-10%)}
+  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(8,12,16,0.4);padding:20px}
+  .modal.active{display:flex}
+  .modal .inner{background:var(--card);padding:18px;border-radius:12px;max-width:720px;width:100%;box-shadow:0 20px 50px rgba(16,32,40,0.3)}
+  .modal img{width:100%;height:auto;border-radius:8px}
+  footer.small{margin-top:16px;text-align:center;color:var(--muted);font-size:13px}
+  @media (prefers-reduced-motion: no-preference){
+    .blob{animation:float 12s ease-in-out infinite}
+    .b1{animation-delay:0s}
+    .b2{animation-delay:2s}
+    .b3{animation-delay:4s}
+    @keyframes float{0%{transform:translateY(0) translateX(0)}50%{transform:translateY(-24px) translateX(12px)}100%{transform:translateY(0) translateX(0)}}
+    .hero-grid{transition:transform 400ms cubic-bezier(.2,.8,.2,1)}
+  }
+  @media (max-width:720px){
+    .hero-grid{flex-direction:column;align-items:center;text-align:center}
+    .photo{width:120px;height:120px}
+    .photos-grid{grid-template-columns:1fr}
+    .photo-main{grid-column:1/2;height:320px}
+    .thumb-half{height:160px}
+  }
+</style>
+</head>
+<body>
+  <div class="blobs" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
+
+  <div class="wrap">
+    <header class="hero" role="banner" aria-label="Encabezado felicitación">
+      <div class="hero-grid">
+        <div class="photo"><img id="mainPhoto" src="img/f52495144.jpg" alt="Foto de mamá"></div>
+        <div>
+          <h1 id="title">Feliz cumpleaños, Mamá</h1>
+          <p class="lead" id="lead">Gracias por tanto. Te quiero.</p>
+          <div class="cta"><button id="surprise">Ver sorpresa</button></div>
+        </div>
+      </div>
+    </header>
+
+    <section aria-labelledby="gal-title">
+      <h2 id="gal-title">Recuerdos</h2>
+      <p class="note">Pulsa sobre las fotos para ampliar.</p>
+      <div class="photos-grid" id="gallery">
+        <!-- primera fila: imagen completa; segunda fila: dos mitades -->
+      </div>
+    </section>
+
+    <section aria-labelledby="timeline-title">
+      <h2 id="timeline-title">Pequeñas notas</h2>
+      <p class="note">Una línea corta que se muestra siempre para que haga impacto: "Que pases un día precioso."</p>
+      <p class="note" id="extraSmall">Con todo mi cariño, —Hermes.</p>
+    </section>
+
+    <section aria-labelledby="more-title">
+      <h2 id="more-title">Más</h2>
+      <p class="note">Si quieres, aquí podemos poner una canción corta o un enlace a un vídeo familiar.</p>
+    </section>
+
+    <footer class="small">03/11/2025 — Hermes</footer>
+  </div>
+
+  <div class="modal" id="modal" role="dialog" aria-hidden="true">
+    <div class="inner" role="document">
+      <button id="closeModal" style="float:right;border:none;background:transparent;font-size:18px;cursor:pointer">✕</button>
+      <img id="modalImg" src="img/f52495144.jpg" alt="Foto ampliada">
+    </div>
+  </div>
+
+<script>
+  // Config: orden específico para la galería
+  const CONFIG = {
+    mainPhoto: 'img/f52495144.jpg',
+    lead: 'Gracias por tanto. Te quiero.',
+    extraSmall: 'Con todo mi cariño, —Hermes.',
+    // primero la imagen grande, luego las dos mitades (izquierda derecha)
+    photos: [
+      'img/f266749256.jpg',
+      'img/f77014688.jpg',
+      'img/f238636048.jpg'
+    ]
+  };
+
+  // Apply config
+  if(CONFIG.mainPhoto) document.getElementById('mainPhoto').src = CONFIG.mainPhoto;
+  document.getElementById('lead').textContent = CONFIG.lead;
+  document.getElementById('extraSmall').textContent = CONFIG.extraSmall;
+
+  // Gallery render: primera imagen grande, luego dos mitades
+  const gallery = document.getElementById('gallery');
+  CONFIG.photos.forEach((src, i)=>{
+    const d = document.createElement('div');
+    const img = document.createElement('img'); img.src = src; img.alt = `Foto ${i+1}`;
+    if(i===0){ d.className='photo-main'; d.tabIndex=0; d.setAttribute('role','button'); d.setAttribute('aria-label',`Abrir foto ${i+1}`); d.appendChild(img); }
+    else { d.className='thumb-half'; d.tabIndex=0; d.setAttribute('role','button'); d.setAttribute('aria-label',`Abrir foto ${i+1}`); d.appendChild(img); }
+    d.addEventListener('click', ()=> openModal(src));
+    d.addEventListener('keyup', (e)=>{ if(e.key==='Enter') openModal(src) });
+    gallery.appendChild(d);
+  });
+
+  // modal
+  const modal = document.getElementById('modal'); const modalImg = document.getElementById('modalImg');
+  function openModal(src){ modal.classList.add('active'); modal.setAttribute('aria-hidden','false'); modalImg.src = src; }
+  document.getElementById('closeModal').addEventListener('click', closeModal);
+  modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+  function closeModal(){ modal.classList.remove('active'); modal.setAttribute('aria-hidden','true'); modalImg.src=''; }
+
+  // surprise button reveals extra tiny line and gentle scale animation on hero
+  const btn = document.getElementById('surprise'); let done=false;
+  btn.addEventListener('click', ()=>{
+    if(done) return; done=true; document.getElementById('extraSmall').textContent = CONFIG.extraSmall;
+    btn.textContent='¡Hecho!';
+    // micro animation
+    const hero = document.querySelector('.hero-grid');
+    hero.animate([{transform:'scale(1)'},{transform:'scale(1.02)'},{transform:'scale(1)'}],{duration:600,easing:'cubic-bezier(.2,.8,.2,1)'});
+  });
+
+  // simple parallax for blobs (follows scroll)
+  const blobs = document.querySelectorAll('.blob');
+  window.addEventListener('scroll', ()=>{
+    const sc = window.scrollY;
+    blobs.forEach((b,i)=>{ b.style.transform = `translateY(${sc * (0.02*(i+1))}px)` });
+  }, {passive:true});
+
+  // Respect reduced-motion
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.querySelectorAll('.blob').forEach(b=>{ b.style.animation='none'; b.style.transition='none' });
+  }
+</script>
+</body>
+</html>
