@@ -26,7 +26,6 @@
   .photo img{width:100%;height:100%;object-fit:cover;display:block}
   h1{margin:0;font-family:'Playfair Display',serif;font-size:30px}
   p.lead{margin:8px 0;font-size:16px;color:var(--muted)}
-  .cta{margin-top:12px}
   button{background:var(--accent);color:#fff;border:none;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer}
   section{margin-top:22px;padding:18px;border-radius:14px;background:rgba(255,255,255,0.6);box-shadow:0 6px 18px rgba(16,32,40,0.04)}
 
@@ -36,7 +35,7 @@
   .thumb-half{height:200px;overflow:hidden;border-radius:10px}
   .photo-main img,.thumb-half img{width:100%;height:100%;object-fit:cover;display:block}
 
-  .note{font-size:13px;color:var(--muted);margin-top:8px}
+  .note{font-size:13px;margin-top:8px}
   .blobs{position:fixed;left:0;top:0;pointer-events:none;width:100%;height:100%;z-index:-1}
   .blob{position:absolute;filter:blur(36px);opacity:0.6;transform:translate3d(0,0,0)}
   .b1{width:380px;height:380px;background:radial-gradient(circle at 30% 30%, #FFD1DC, #F6B0D6);left:-80px;top:-120px}
@@ -78,7 +77,6 @@
         <div>
           <h1 id="title">Feliz cumpleaños, Mamá</h1>
           <p class="lead" id="lead">Gracias por tanto. Te quiero.</p>
-          <div class="cta"><button id="surprise">Ver sorpresa</button></div>
         </div>
       </div>
     </header>
@@ -92,17 +90,29 @@
     </section>
 
     <section aria-labelledby="timeline-title">
-      <h2 id="timeline-title">Pequeñas notas</h2>
-      <p class="note">Una línea corta que se muestra siempre para que haga impacto: "Que pases un día precioso."</p>
-      <p class="note" id="extraSmall">Con todo mi cariño, —Hermes.</p>
+      <h2 id="timeline-title">A la mejor madre que uno puede tener</h2>
+      <p class="note">
+		Hola mamá, siempre me decíais que os hiciera un dibujito o una carta por vuestro cumpleañós, pero por desgracía vuestro hijo nació demasiado vago JAJAJAJAJAJJA.
+		Ahora que ya han pasado los años me he ido dando cuenta de lo importante que es cuidar de lo que amas y estar más atento a las cosas importantes, y todo eso
+		es gracias a vosotros. <br>
+		Muchísimas gracias por cuidarme como me has cuidado todos estos años, aún con las dificultades y los imprevistos, con todo el peso que cargabas encima del que yo
+		soy más que consciente. Gracias por soprtar mis tonterías y por ser una madre ejemplar, que aunque no te lo creas, me has criado de una forma de la que jamás me 
+		arrepentiré, y tú tampoco deberías.<br><br>
+		
+		Te amo mamá, por todo los que has sido y eres para mí. Mi apoyo emocional, mi sitio seguro, mi fuente de sabiduría y mi guía en la vida, jamás pediría una madre que no
+		fueras tú porque eres literalmente irremplazable. Lo siento si no he sido lo suficientemente cariñoso, detallista ni atento contigo, cada vez intento serlo más porque es
+		justo lo que te mereces, que si tú lo pasas mal, yo lo paso mal y me gustaría algún día devolverte todo lo bonito que has hecho por mí todos estos años. 
+		Te amo de corazón mamá, que sigas cumpliendo muchos más años con salud y que nunca me faltes, por favor.
+	  </p>
+      <p class="note" id="extraSmall">Ahí estaré cuando me necesites, —Tu hijo, Abraham.</p>
     </section>
 
     <section aria-labelledby="more-title">
-      <h2 id="more-title">Más</h2>
-      <p class="note">Si quieres, aquí podemos poner una canción corta o un enlace a un vídeo familiar.</p>
+      <h2 id="more-title">❤️‍🩹</h2>
+      <a class="note" href="https://drive.google.com/drive/folders/1UxPRBaRV00MjBlO86kbCoHwiBWZnxwDw?usp=sharing" target="_blank">Cositas que te pueden alegrar el día (Dale click aquí)</a>
     </section>
 
-    <footer class="small">03/11/2025 — Hermes</footer>
+    <footer class="small">07/11/2025 — Abraham</footer>
   </div>
 
   <div class="modal" id="modal" role="dialog" aria-hidden="true">
@@ -117,7 +127,7 @@
   const CONFIG = {
     mainPhoto: 'img/f52495144.jpg',
     lead: 'Gracias por tanto. Te quiero.',
-    extraSmall: 'Con todo mi cariño, —Hermes.',
+    extraSmall: 'Ahí estaré cuando me necesites, —Tu hijo, Abraham.',
     // primero la imagen grande, luego las dos mitades (izquierda derecha)
     photos: [
       'img/f266749256.jpg',
